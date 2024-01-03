@@ -13,7 +13,7 @@ import { v4 as uuid } from "uuid";
 export const TodoListContext = React.createContext({
   list: {},
   fullList: {},
-  currentDataId:{},
+  currentDataId: {},
   editItem: null,
   addItem: () => {},
   edit: () => {},
@@ -23,7 +23,7 @@ export const TodoListContext = React.createContext({
   create: () => {},
   done: () => {},
   draggedList: () => {},
-  highLightList:()=>{}
+  highLightList: () => {},
 });
 
 const TodoListContextProvider = ({ children }) => {
@@ -37,6 +37,9 @@ const TodoListContextProvider = ({ children }) => {
     const data = getList();
     if (data.hasOwnProperty(data_id)) {
       setList([...data[data_id]]);
+      setDataId(data_id);
+      setFullList(data);
+    } else {
       setDataId(data_id);
       setFullList(data);
     }
@@ -70,9 +73,6 @@ const TodoListContextProvider = ({ children }) => {
 
   const create = () => {
     activeDataId();
-    const data_id = localStorage.getItem("data_id");
-    let updatedData = createData(data_id);
-    settingList(updatedData);
   };
   const done = (index) => {
     let updatedData;
@@ -87,10 +87,10 @@ const TodoListContextProvider = ({ children }) => {
   const editDataItem = (item, index) => {
     setEditItem({ item, index });
   };
-  const highLightList=(data_id)=>{
+  const highLightList = (data_id) => {
     localStorage.setItem("data_id", data_id);
     setDataId(data_id);
-  }
+  };
   const activeDataId = () => {
     const active = uuid();
     const data_id = active.slice(0, 8);
@@ -107,7 +107,7 @@ const TodoListContextProvider = ({ children }) => {
       value={{
         list,
         fullList,
-        currentDataId : dataId,
+        currentDataId: dataId,
         addItem,
         edit,
         editDataItem,
@@ -117,7 +117,7 @@ const TodoListContextProvider = ({ children }) => {
         deleteList,
         deleteListItem,
         draggedList,
-        highLightList
+        highLightList,
       }}
     >
       {children}

@@ -27,3 +27,8 @@ code {
   background-color: #888;
   border-radius: 5px;
 }
+
+.list-header{
+  font-size: large;
+  font-weight: bold;
+}
