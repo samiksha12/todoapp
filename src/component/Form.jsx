@@ -26,6 +26,7 @@ function Form() {
     setTodotext("");
   }
   const handleCreate = (e)=>{
+    e.preventDefault();
     create();
     setDisabled(true);
     setTodotext("");
