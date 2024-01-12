@@ -16,7 +16,6 @@ function Form() {
   }
   const handleSubmit = (e)=>{
     e.preventDefault();
-    console.log("submit is called");
     if(editItem){
       editItem.item=todotext;
       edit(editItem);
@@ -28,7 +27,6 @@ function Form() {
   }
   const handleCreate = (e)=>{
     e.preventDefault();
-    console.log("create is called");
     create();
     setDisabled(true);
     setTodotext("");
