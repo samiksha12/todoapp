@@ -58,6 +58,9 @@ function Form() {
         <button type="submit" className="btn btn-primary p-2 m-2" onClick={handleCreate}>
           Create New List
         </button>
+        <button type="submit" className="btn btn-primary p-2 m-2" onClick={handleCreate}>
+          Draw List
+        </button>
       </form>
     </div>
   );

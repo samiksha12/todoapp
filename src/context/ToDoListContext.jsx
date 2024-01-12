@@ -42,7 +42,9 @@ const TodoListContextProvider = ({ children }) => {
     } else {
       setDataId(data_id);
       setFullList(data);
+      setList(null);
     }
+    console.log("dataid is updated");
   }, [dataId]);
   const addItem = (item) => {
     let updatedData;
