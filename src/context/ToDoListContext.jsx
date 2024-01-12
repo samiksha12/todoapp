@@ -48,8 +48,8 @@ const TodoListContextProvider = ({ children }) => {
     let updatedData;
     const data_id = localStorage.getItem("data_id");
     if (!data_id || data_id === null || data_id === undefined) {
-      activeDataId();
-      updatedData = addData(dataId, item);
+      const list_id = activeDataId();
+      updatedData = addData(list_id, item);
       settingList(updatedData);
     } else {
       updatedData = addData(data_id, item);
@@ -96,6 +96,7 @@ const TodoListContextProvider = ({ children }) => {
     const data_id = active.slice(0, 8);
     localStorage.setItem("data_id", data_id);
     setDataId(data_id);
+    return data_id;
   };
   const settingList = (updatedData) => {
     setList(updatedData[dataId]);
