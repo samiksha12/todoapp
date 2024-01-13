@@ -41,8 +41,11 @@ export default function Canvas({ color, strokeWidth, eraseWidth }) {
   return (
     <canvas
       onMouseDown={startDrawing}
+      onTouchStart={startDrawing}
       onMouseUp={finishDrawing}
+      onTouchEnd={finishDrawing}
       onMouseMove={draw}
+      onTouchMove={draw}
       onMouseOut={finishDrawing}
       ref={canvasRef}
     />
