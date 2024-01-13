@@ -10,7 +10,7 @@ const CanvasContext = React.createContext({
   draw: () => {},
   startErasing: () => {},
   resumeDrawing: () => {},
-  getDataUrl:()=>{}
+  getDataUrl: () => {},
 });
 
 export const CanvasProvider = ({ children }) => {
@@ -33,8 +33,13 @@ export const CanvasProvider = ({ children }) => {
 
   const startDrawing = ({ nativeEvent }) => {
     nativeEvent.preventDefault();
-    // const touch = nativeEvent.touches[0];
-    const { offsetX, offsetY } = nativeEvent;
+    let { offsetX, offsetY } = nativeEvent;
+    if (nativeEvent.touches && nativeEvent.touches.length > 0) {
+      const touch = nativeEvent.touches[0];
+      offsetX = touch.clientX;
+      offsetY = touch.clientY;
+    }
+
     contextRef.current.beginPath();
     contextRef.current.moveTo(offsetX, offsetY);
     setIsDrawing(true);
@@ -50,8 +55,12 @@ export const CanvasProvider = ({ children }) => {
       return;
     }
     nativeEvent.preventDefault();
-    // const touch = nativeEvent.touches[0];
-    const { offsetX, offsetY } = nativeEvent;
+    let { offsetX, offsetY } = nativeEvent;
+    if (nativeEvent.touches && nativeEvent.touches.length > 0) {
+      const touch = nativeEvent.touches[0];
+      offsetX = touch.clientX;
+      offsetY = touch.clientY;
+    }
     contextRef.current.lineTo(offsetX, offsetY);
     contextRef.current.stroke();
   };
@@ -72,8 +81,6 @@ export const CanvasProvider = ({ children }) => {
     context.strokeStyle = color;
     context.fillRect(0, 0, canvas.width, canvas.height);
   };
-
-  
 
   const getDataUrl = (originalCanvas) => {
     const originalContext = originalCanvas.getContext("2d");
@@ -132,7 +139,7 @@ export const CanvasProvider = ({ children }) => {
         draw,
         startErasing,
         resumeDrawing,
-        getDataUrl
+        getDataUrl,
       }}
     >
       {children}
