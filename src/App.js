@@ -12,7 +12,7 @@ function App() {
     <Fragment>
       <div className="App">
         <div className="container-md">
-          <h1 className="text-center">To Do App</h1>
+          <h1 className="text-center">Post-It App</h1>
           <Form />
           {!canvasActive ? <TodoList /> : <CanvasDraw />}
           <List />
