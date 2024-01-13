@@ -8,7 +8,7 @@ function List() {
   return (
     <div className="container">
         <span className="list-header">Your Lists:</span>
-    <div className="col-md-12 d-flex">
+    <div className="col-md-12 d-flex overflow-auto">
       {fullList &&
         Object.keys(fullList).map(
           (key, index) =>

@@ -33,6 +33,7 @@ export const CanvasProvider = ({ children }) => {
 
   const startDrawing = ({ nativeEvent }) => {
     nativeEvent.preventDefault();
+    // const touch = nativeEvent.touches[0];
     const { offsetX, offsetY } = nativeEvent;
     contextRef.current.beginPath();
     contextRef.current.moveTo(offsetX, offsetY);
@@ -49,6 +50,7 @@ export const CanvasProvider = ({ children }) => {
       return;
     }
     nativeEvent.preventDefault();
+    // const touch = nativeEvent.touches[0];
     const { offsetX, offsetY } = nativeEvent;
     contextRef.current.lineTo(offsetX, offsetY);
     contextRef.current.stroke();

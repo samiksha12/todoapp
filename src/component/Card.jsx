@@ -8,7 +8,7 @@ const Card = (props) => {
   const counter = props.index;
   return (
     <div
-      className="card col-md-3 col-3 m-2 p-2"
+      className="card col-md-3 col-2 m-2 p-2"
       style={{ width: "18rem", height: "18rem" }}
       onClick={() => {
         highLightList(keyId);
