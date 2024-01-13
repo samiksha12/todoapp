@@ -54,7 +54,7 @@ function CanvasDraw() {
   );
 
   return (
-    <div className="container-md m-3 d-flex justify-content-between rounded border border-1">
+    <div className="container-md d-flex justify-content-between rounded border border-1">
       <div
         className="container-md"
         style={{ overflowY: "auto", maxHeight: "300px"}}
