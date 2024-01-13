@@ -4,12 +4,15 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import ToDoListContextProvider from "./context/ToDoListContext";
+import { CanvasProvider } from "./context/CanvasContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <ToDoListContextProvider>
-      <App />
+      <CanvasProvider>
+        <App />
+      </CanvasProvider>
     </ToDoListContextProvider>
   </React.StrictMode>
 );

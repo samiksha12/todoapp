@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
+  addCanvasData,
   addData,
   createData,
   deleteData,
@@ -15,7 +16,9 @@ export const TodoListContext = React.createContext({
   fullList: {},
   currentDataId: {},
   editItem: null,
+  editCanvas:null,
   addItem: () => {},
+  addCanvasItem: () => {},
   edit: () => {},
   editDataItem: () => {},
   deleteListItem: () => {},
@@ -24,6 +27,8 @@ export const TodoListContext = React.createContext({
   done: () => {},
   draggedList: () => {},
   highLightList: () => {},
+  canvasActive: false,
+  callCanvas: () => {},
 });
 
 const TodoListContextProvider = ({ children }) => {
@@ -31,20 +36,27 @@ const TodoListContextProvider = ({ children }) => {
   const [fullList, setFullList] = useState(null);
   const [dataId, setDataId] = useState(null);
   const [editItem, setEditItem] = useState(null);
+  const [editCanvas,setEditCanvas] = useState(null);
+  const [canvasActive, setCanvasActive] = useState(false);
 
   useEffect(() => {
     const data_id = localStorage.getItem("data_id");
     const data = getList();
     if (data.hasOwnProperty(data_id)) {
-      setList([...data[data_id]]);
+      if (data[data_id][0].type === "canvas") {
+        setCanvasActive(true);
+        setEditCanvas([...data[data_id]]);
+      } else {
+        setList([...data[data_id]]);
+      }
       setDataId(data_id);
       setFullList(data);
     } else {
       setDataId(data_id);
       setFullList(data);
       setList(null);
+      setEditCanvas(null);
     }
-    console.log("dataid is updated");
   }, [dataId]);
   const addItem = (item) => {
     let updatedData;
@@ -55,6 +67,19 @@ const TodoListContextProvider = ({ children }) => {
       settingList(updatedData);
     } else {
       updatedData = addData(data_id, item);
+      settingList(updatedData);
+    }
+  };
+
+  const addCanvasItem = (item) => {
+    let updatedData;
+    const data_id = localStorage.getItem("data_id");
+    if (!data_id || data_id === null || data_id === undefined) {
+      const list_id = activeDataId();
+      updatedData = addCanvasData(list_id, item);
+      settingList(updatedData);
+    } else {
+      updatedData = addCanvasData(data_id, item);
       settingList(updatedData);
     }
   };
@@ -75,6 +100,11 @@ const TodoListContextProvider = ({ children }) => {
 
   const create = () => {
     activeDataId();
+    setCanvasActive(false);
+  };
+  const callCanvas = () => {
+    activeDataId();
+    setCanvasActive(true);
   };
   const done = (index) => {
     let updatedData;
@@ -112,15 +142,19 @@ const TodoListContextProvider = ({ children }) => {
         fullList,
         currentDataId: dataId,
         addItem,
+        addCanvasItem,
         edit,
         editDataItem,
         editItem,
+        editCanvas,
         done,
         create,
         deleteList,
         deleteListItem,
         draggedList,
         highLightList,
+        canvasActive,
+        callCanvas,
       }}
     >
       {children}

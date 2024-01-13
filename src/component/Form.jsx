@@ -1,64 +1,105 @@
 import React, { useContext, useEffect, useState } from "react";
 import { TodoListContext } from "../context/ToDoListContext";
+import { useCanvas } from "../context/CanvasContext";
 
 function Form() {
   const [todotext, setTodotext] = useState("");
   const [disabled, setDisabled] = useState(true);
-  const {addItem,editItem,edit,create} = useContext(TodoListContext);
+  const { addItem,addCanvasItem, editItem, edit, create, canvasActive, callCanvas,editCanvas } =
+    useContext(TodoListContext);
 
-  const handleChange = (e)=>{
+    const {canvasRef,getDataUrl,prepareCanvas} = useCanvas();
+  const handleChange = (e) => {
     setTodotext(e.target.value);
-    if(e.target.value.trim().length > 0 ){
+    if (e.target.value.trim().length > 0) {
       setDisabled(false);
-    }else{
+    } else {
       setDisabled(true);
     }
-  }
-  const handleSubmit = (e)=>{
+  };
+  const handleSubmit = (e) => {
     e.preventDefault();
-    if(editItem){
-      editItem.item=todotext;
+    if (editItem) {
+      editItem.item = todotext;
       edit(editItem);
-    }else{
+    } else {
       addItem(todotext);
     }
     setDisabled(true);
     setTodotext("");
-  }
-  const handleCreate = (e)=>{
+  };
+  const handleCreate = (e) => {
     e.preventDefault();
     create();
     setDisabled(true);
     setTodotext("");
+  };
+
+  const handleDraw = (e) => {
+    e.preventDefault();
+    callCanvas();
+  };
+  const handleSave = (e)=>{
+    e.preventDefault();
+    const canvasData = getDataUrl(canvasRef.current);
+    addCanvasItem(canvasData);
+    handleDraw(e);
+    prepareCanvas();
   }
-  useEffect(()=>{
-    if(editItem){
+
+  useEffect(() => {
+    if (editItem) {
       setTodotext(editItem.item);
       setDisabled(false);
     }
-  },[editItem])
+  }, [editItem]);
   return (
     <div className="container-md">
       <form className="col-md-12">
-        <div className="mb-3">
-          <input
-            type="text"
-            className="form-control"
-            id="todotext"
-            aria-describedby="todotext"
-            placeholder="Things to do:"
-            value={todotext}
-            onChange={handleChange}
-            autoFocus={true}
-          />
-        </div>
-        <button type="submit" className="btn btn-primary p-2 m-2" disabled={disabled} onClick={handleSubmit}>
-          Submit
-        </button>
-        <button type="submit" className="btn btn-primary p-2 m-2" onClick={handleCreate}>
+        {!canvasActive && (
+          <div className="mb-3">
+            <input
+              type="text"
+              className="form-control"
+              id="todotext"
+              aria-describedby="todotext"
+              placeholder="Things to do:"
+              value={todotext}
+              onChange={handleChange}
+              autoFocus={true}
+            />
+          </div>
+        )}
+        {!canvasActive ? (
+          <button
+            type="submit"
+            className="btn btn-primary p-2 m-2"
+            disabled={disabled}
+            onClick={handleSubmit}
+          >
+            Submit
+          </button>
+        ) :(
+          <button
+            type="submit"
+            className="btn btn-primary p-2 m-2"
+            onClick={handleSave}
+          >
+            Save
+          </button>
+        )}
+        <button
+          type="submit"
+          className="btn btn-primary p-2 m-2"
+          onClick={handleCreate}
+        >
           Create New List
         </button>
-        <button type="submit" className="btn btn-primary p-2 m-2" onClick={handleCreate}>
+        <button
+          type="submit"
+          className="btn btn-primary p-2 m-2"
+          onClick={handleDraw}
+        >
           Draw List
         </button>
       </form>

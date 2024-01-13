@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import { TodoListContext } from "../context/ToDoListContext";
 
 function TodoList() {
-  const { list, editDataItem, deleteListItem, done,draggedList } =
+  const { list, editDataItem, deleteListItem, done,draggedList} =
     useContext(TodoListContext);
   const dragItem = useRef(null);
   const dragOverItem = useRef(null);

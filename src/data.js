@@ -58,3 +58,11 @@ export const deleteDataList = (data_id) => {
   }
   return data;
 };
+
+export const addCanvasData = (data_id, item) => {
+  const data = getList();
+  const newItem = { name: item, type: "canvas" };
+  data[data_id]=[newItem];
+  localStorage.setItem(KEY, JSON.stringify(data));
+  return data;
+};

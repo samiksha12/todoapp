@@ -32,3 +32,17 @@ code {
   font-size: large;
   font-weight: bold;
 }
+
+.color-display{
+  width:30px;
+  height:20px;
+  display:block;
+  position:absolute;
+}
+.color-box,.color-box input[type=color]{
+  width:30px;
+  height:30px;
+}
+.stroke-width, .stroke-width input[type=range]{
+  width:40px;
+}
