@@ -36,8 +36,8 @@ export const CanvasProvider = ({ children }) => {
     let { offsetX, offsetY } = nativeEvent;
     if (nativeEvent.touches && nativeEvent.touches.length > 0) {
       const touch = nativeEvent.touches[0];
-      offsetX = touch.clientX;
-      offsetY = touch.clientY;
+      offsetX = touch.offsetX;
+      offsetY = touch.offsetY;
     }
 
     contextRef.current.beginPath();
@@ -58,8 +58,8 @@ export const CanvasProvider = ({ children }) => {
     let { offsetX, offsetY } = nativeEvent;
     if (nativeEvent.touches && nativeEvent.touches.length > 0) {
       const touch = nativeEvent.touches[0];
-      offsetX = touch.clientX;
-      offsetY = touch.clientY;
+      offsetX = touch.offsetX;
+      offsetY = touch.offsetY;
     }
     contextRef.current.lineTo(offsetX, offsetY);
     contextRef.current.stroke();
