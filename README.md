@@ -1,4 +1,7 @@
-https://github.com/samiksha12/todoapp/assets/21308981/3af8c15b-2862-42ac-b515-c48973acf48b
+
+https://github.com/samiksha12/todoapp/assets/21308981/68ab1f2e-d2c9-48df-872b-28e6c1ab6526
+
+
 
 # Getting Started with Create React App
 
