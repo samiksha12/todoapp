@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import {
   addCanvasData,
   addData,
-  createData,
   deleteData,
   deleteDataList,
   doneUpdate,

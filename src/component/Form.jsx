@@ -8,7 +8,7 @@ function Form() {
   const { addItem,addCanvasItem, editItem, edit, create, canvasActive, callCanvas,editCanvas } =
     useContext(TodoListContext);
 
-    const {canvasRef,getDataUrl,prepareCanvas} = useCanvas();
+    const {canvasRef,prepareCanvas} = useCanvas();
   const handleChange = (e) => {
     setTodotext(e.target.value);
     if (e.target.value.trim().length > 0) {
@@ -41,7 +41,8 @@ function Form() {
   };
   const handleSave = (e)=>{
     e.preventDefault();
-    const canvasData = getDataUrl(canvasRef.current);
+    const canvas = canvasRef.current;
+    const canvasData = canvas.toDataURL();
     addCanvasItem(canvasData);
     handleDraw(e);
     prepareCanvas();
