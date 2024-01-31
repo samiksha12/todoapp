@@ -15,7 +15,7 @@ function TodoList() {
     draggedList(_list);
   };
   return (
-    <div className="container-md list-scroll rounded border border-1" style={{ height: "10rem" }}>
+    <div className="container-md list-scroll rounded border border-1">
       <ol className="sortable-list m-2">
         {list?.map((item, index) => (
           <li
